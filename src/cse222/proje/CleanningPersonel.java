@@ -13,18 +13,27 @@ public class CleanningPersonel extends Employee {
 		super(name, surname, ID, password);
 	}
 
-	public CleanningPersonel() {
-
-	}
-
 	/**
 	 * Update given sector's cleanningState
 	 * @param sector will be updated
 	 * @return if updated successfully returns true
 	 * @throws NullPointerException if one of given parameters is null
 	 */
-	public boolean updateSector(Sector sector){
-		return true;
+	public boolean updateSector(Sector sector)throws Exception {
+
+		if (sector.equals(null))
+			throw new NullPointerException("Sector can not be null!");
+
+		else
+
+			if (sector.getCleanningState() == Sector.CleanningStates.DIRTY)
+				return sector.updateCleanningState(Sector.CleanningStates.CLEANNING);
+
+			else if (sector.getCleanningState() == Sector.CleanningStates.CLEANNING)
+				return sector.updateCleanningState(Sector.CleanningStates.CLEAN);
+
+			else
+				return sector.updateCleanningState(Sector.CleanningStates.DIRTY);
 	}
 
 	/**
@@ -33,6 +42,9 @@ public class CleanningPersonel extends Employee {
 	 * @throws NullPointerException if given parameter is null
 	 */
 	public void displaySector(Sector sector){
+		if (sector.equals(null))
+			throw new NullPointerException("Sector can not be null!");
+
 		System.out.printf("\n Sector %s cleanning status : %s", sector.getSectorID(), sector.getCleanningState());
 	}
 

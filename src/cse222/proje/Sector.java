@@ -6,10 +6,6 @@ public class Sector {
 	private CleanningStates cleanningState;
 	private SecurityStates securityState;
 
-    public Sector() {
-
-    }
-
     public enum CleanningStates{
 		DIRTY, CLEANNING, CLEAN;
 	}
@@ -61,7 +57,19 @@ public class Sector {
 	 * @throws NullPointerException if given parameter is null
 	 */
 	public boolean updateCleanningState(CleanningStates CS){
-		return  true;
+
+		if (CS.equals(null))
+			throw new NullPointerException("State can not be null!");
+
+		else {
+			if (CS == cleanningState)
+				return false;
+
+			else{
+				cleanningState = CS;
+				return true;
+			}
+		}
 	}
 
 	/**
@@ -71,7 +79,18 @@ public class Sector {
 	 * @throws NullPointerException if given parameter is null
 	 */
 	public boolean updateSecurityState(SecurityStates SS){
-		return true;
-	}
 
+		if (SS.equals(null))
+			throw new NullPointerException("State can not be null!");
+
+		else {
+			if (SS == securityState)
+				return false;
+
+			else{
+				securityState = SS;
+				return true;
+			}
+		}
+	}
 }

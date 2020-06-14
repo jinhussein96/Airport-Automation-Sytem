@@ -13,18 +13,25 @@ public class SecurityPersonel extends Employee {
         super(name, surname, ID, password);
     }
 
-    public SecurityPersonel() {
-
-    }
-
     /**
      * Update given sector's securityState
      * @param sector will be updated
      * @return if updated successfully returns true
      * @throws NullPointerException if one of given parameters is null
      */
-    public boolean updateSector(Sector sector){
-        return true;
+    public boolean updateSector(Sector sector)throws Exception{
+
+        if (sector.equals(null))
+            throw new NullPointerException("Sector can not be null!");
+
+        else {
+
+            if (sector.getSecurityState() == Sector.SecurityStates.SECURE)
+                return sector.updateSecurityState(Sector.SecurityStates.INSECURE);
+
+            else
+                return sector.updateSecurityState(Sector.SecurityStates.SECURE);
+        }
     }
 
     /**
