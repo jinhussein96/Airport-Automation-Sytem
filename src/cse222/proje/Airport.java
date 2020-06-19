@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Airport {
-	
+
 
 	private LinkedList<Administrator> administrators; // BST
 	private LinkedList<Firm> firms; // BST
@@ -28,7 +28,7 @@ public class Airport {
 		administrators = new LinkedList<Administrator>();
 		administrators.add(firstAdmin);
 	}
-	
+
 	public class Administrator extends Employee{
 
 		/**
@@ -206,5 +206,4 @@ public class Airport {
 	public String getFlightData(int flighID){
 		return "";
 	}
-
 }

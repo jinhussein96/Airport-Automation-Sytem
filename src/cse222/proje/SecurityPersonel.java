@@ -43,4 +43,12 @@ public class SecurityPersonel extends Employee {
         System.out.printf("\n Sector %s security status : %s", sector.getSectorID(), sector.getSecurityState());
     }
 
+    @Override
+    public String toString() {
+        return "SecurityPersonel{" +
+                "ID=" + ID +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                '}';
+    }
 }

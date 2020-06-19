@@ -48,4 +48,12 @@ public class CleanningPersonel extends Employee {
 		System.out.printf("\n Sector %s cleanning status : %s", sector.getSectorID(), sector.getCleanningState());
 	}
 
+	@Override
+	public String toString() {
+		return "CleanningPersonel{" +
+				"ID=" + ID +
+				", name='" + name + '\'' +
+				", surname='" + surname + '\'' +
+				'}';
+	}
 }
