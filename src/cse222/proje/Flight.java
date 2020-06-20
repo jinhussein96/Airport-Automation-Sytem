@@ -106,5 +106,15 @@ public class Flight {
         Flight flight = (Flight) o;
         return flightID == flight.flightID;
     }
+	
+	/**
+     * Returns Flight Information like flight ID, flight date, plane, pilot, hostess
+     * @return Flight Information like flight ID, flight date, plane, pilot, hostess
+     */
+    public String toString() {
+    	
+    	return "\n Flight ID: " + flightID + "\n Flight Date: " + flightDate + "\n Plane: " + plane
+    			+ "\n  Pilot: " + pilot + "\n Hostess: " + hostess + "\n";
+    }
 
 }
