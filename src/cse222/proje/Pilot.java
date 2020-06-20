@@ -1,5 +1,6 @@
 package cse222.proje;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Pilot extends Employee{
     /**
@@ -31,9 +32,23 @@ public class Pilot extends Employee{
      * If pilot has authority to change flight's that has given flightID plane status
      * @param flightID will be searched
      * @throws NullPointerException if given parameter is null
+     * @throws IllegalArgumentException if enter wrong input type for enum
      */
-    public void setReadinessOfPlane(String flightID){
+    public void setReadinessOfPlane(int flightID){
+        for(int i = 0; i < flights.size(); ++i){
+            if(flights.get(i).getFlightID() == flightID){
+                Scanner scanStatus = new Scanner(System.in);
+                Plane.StateOfPlane status = Plane.StateOfPlane.valueOf(scanStatus.next());
+                if(status.equals(Plane.StateOfPlane.ReadyToFly) ||
+                        status.equals(Plane.StateOfPlane.Flying) ||
+                            status.equals(Plane.StateOfPlane.Landed))
+                    flights.get(i).getPlane().setReadinessOfPlane(status);
+                else
+                    throw new IllegalArgumentException();
+            }
+        }
 
+        throw new NullPointerException();
     }
 
     /**
@@ -52,14 +67,6 @@ public class Pilot extends Employee{
      */
     public boolean removeFlight(Flight removeFlight){
         return flights.remove(removeFlight);
-    }
-
-    /**
-     * Returns Pilot's flights as StringBuilder
-     * @return Pilot's flights as StringBuilder
-     */
-    public StringBuilder displayShift(){
-        return new StringBuilder();
     }
 
 }
