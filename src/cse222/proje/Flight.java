@@ -38,9 +38,9 @@ public class Flight implements Comparable<Flight>{
         this.flightDate = flightDate;
         
         if(pilot != null)
-        	this.pilot.addFlight(this);
+        	this.pilot.flights.add(this);
         if(hostess != null)
-        	this.hostess.addFlight(this);
+        	this.hostess.flights.add(this);
     }
 
     public Flight() {
