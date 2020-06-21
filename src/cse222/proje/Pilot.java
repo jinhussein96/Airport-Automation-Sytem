@@ -6,7 +6,7 @@ public class Pilot extends Employee{
     /**
      * Holds flights that pilot work on
      */
-    private ArrayList<Flight> flights;
+    ArrayList<Flight> flights;
 
     /**
      * Create a Pilot object
@@ -51,23 +51,7 @@ public class Pilot extends Employee{
         throw new NullPointerException();
     }
 
-    /**
-     * Adds given flight to pilot's flights
-     * @param addFlight will be added
-     * @return true if it is added successfully
-     */
-    public boolean addFlight(Flight addFlight){
-       return flights.add(addFlight);
-    }
-
-    /**
-     * Removes given flight to pilot's flights
-     * @param removeFlight will be removed
-     * @return true if it is removed successfully
-     */
-    public boolean removeFlight(Flight removeFlight){
-        return flights.remove(removeFlight);
-    }
+   
    /**
     * Returns Pilot's flights as String
     * @return Pilot's flights as String
