@@ -4,23 +4,23 @@ public class Flight implements Comparable<Flight>{
     /**
      * Holds flightID
      */
-    private int flightID;
+    int flightID;
     /**
      * Holds plane of the flight
      */
-    private Plane plane;
+    Plane plane;
     /**
      * Holds pilot of the flight
      */
-    private Pilot pilot;
+    Pilot pilot;
     /**
      * Holds hostess of the flight
      */
-    private Hostess hostess;
+    Hostess hostess;
     /**
      * Holds date information of flight
      */
-    private Date flightDate;
+    Date flightDate;
 
     /**
      * Creates a Flight object
@@ -111,8 +111,8 @@ public class Flight implements Comparable<Flight>{
      */
     public String toString() {
     	
-    	return "\n Flight ID: " + flightID + "\n Flight " + flightDate + "\n Plane: " + plane.planeID
-    			+ "\n Pilot: " + pilot + "\n " + hostess + "\n";
+    	return "\n Flight ID: " + flightID + "\n Flight " + flightDate + "\n Plane ID: " + plane.planeID
+    			+ "\n\n " + pilot + "\n\n " + hostess + "\n";
     }
 
 }
