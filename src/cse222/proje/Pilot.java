@@ -68,5 +68,28 @@ public class Pilot extends Employee{
     public boolean removeFlight(Flight removeFlight){
         return flights.remove(removeFlight);
     }
+   /**
+    * Returns Pilot's flights as String
+    * @return Pilot's flights as String
+    */
+    public String getFlights(){
+    	String str = new String();
+        Iterator<Flight> iter = flights.iterator();
+
+        while (iter.hasNext()){
+            Flight temp = iter.next();
+            str += "\n Flight ID: " + temp.flightID + "\n Flight " + temp.flightDate + "\n Plane ID: " + temp.plane.planeID + "\n";
+        }
+        return "\n Pilot Flights \n" + str + "\n";
+    }
+    
+    /**
+     * Returns Information about Pilot like name, surname, ID
+     * @return Information about Pilot like name, surname, ID
+     */
+    public String toString() {
+    	
+    	return "Pilot ID: " + ID + "\n Pilot name: "+name + "\n Pilot surname: "+surname;
+    }  
 
 }
