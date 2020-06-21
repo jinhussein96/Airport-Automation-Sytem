@@ -25,32 +25,6 @@ public class Hostess extends Employee{
     }
 
     /**
-     * Removes given flight to hostess's flights
-     * @param removeFlight will be removed
-     * @return true if it is removed successfully
-     */
-    public boolean removeFlight(Flight removeFlight){
-        Iterator<Flight> iter = flights.iterator();
-        Flight temp = null;
-        
-        if(iter.hasNext())
-        	temp = iter.next();
-        else
-        	return false;
-
-        while (iter.hasNext() && temp.flightID != removeFlight.flightID){
-            temp = iter.next();
-        }
-        
-        if(temp.flightID == removeFlight.flightID)
-        	removeFlight.flightDate = temp.flightDate;
-        else 
-        	return false;
-        
-        return flights.remove(removeFlight);
-    }
-
-    /**
      * Returns Hostess's flights as String
      * @return Hostess's flights as String
      */
