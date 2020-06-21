@@ -6,7 +6,7 @@ public class Hostess extends Employee{
     /**
      * Holds flights that hostess work on
      */
-    private ConcurrentSkipListSet<Flight> flights;
+    ConcurrentSkipListSet<Flight> flights;
 
     /**
      * Create a Hostess object
