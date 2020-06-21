@@ -1,8 +1,6 @@
 package cse222.proje;
 
-import java.util.Objects;
-
-public class Flight {
+public class Flight implements Comparable<Flight>{
     /**
      * Holds flightID
      */
@@ -37,8 +35,12 @@ public class Flight {
         this.plane = plane;
         this.pilot = pilot;
         this.hostess = hostess;
-
-        this.pilot.addFlight(this);
+        this.flightDate = flightDate;
+        
+        if(pilot != null)
+        	this.pilot.addFlight(this);
+        if(hostess != null)
+        	this.hostess.addFlight(this);
     }
 
     public Flight() {
@@ -84,14 +86,10 @@ public class Flight {
 	public void setFlightDate(Date flightDate) {
 		this.flightDate = flightDate;
 	}
-	
 
-	/**
-     * Returns a flights data as a StringBuilder
-     * @return a flights data as a StringBuilder
-     */
-    public StringBuilder displayFlight(){
-        return new StringBuilder();
+    @Override
+    public int compareTo(Flight o) {
+        return this.flightDate.compareTo(o.flightDate);
     }
 
     /**
@@ -106,15 +104,15 @@ public class Flight {
         Flight flight = (Flight) o;
         return flightID == flight.flightID;
     }
-	
-	/**
+
+    /**
      * Returns Flight Information like flight ID, flight date, plane, pilot, hostess
      * @return Flight Information like flight ID, flight date, plane, pilot, hostess
      */
     public String toString() {
     	
-    	return "\n Flight ID: " + flightID + "\n Flight Date: " + flightDate + "\n Plane: " + plane
-    			+ "\n  Pilot: " + pilot + "\n Hostess: " + hostess + "\n";
+    	return "\n Flight ID: " + flightID + "\n Flight " + flightDate + "\n Plane: " + plane.planeID
+    			+ "\n Pilot: " + pilot + "\n " + hostess + "\n";
     }
 
 }
