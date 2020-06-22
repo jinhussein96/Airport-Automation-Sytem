@@ -2,60 +2,80 @@ package cse222.proje;
 
 import java.util.Stack;
 
-public class AVLTree <T extends Comparable<T>> extends BinarySearchTree<T> implements Iterable<T>{
+public class AVLTree <T extends Comparable<T>> implements Iterable<T>{
 
-    private static class AVLNode<T> extends BinarySearchTree.Node<T> {
+    private class Node{
+        private Node leftChild, rightChild;
+        private T value;
         private int height;
         private int balanceValue;
 
-        public AVLNode(T value){
-            super(value);
+        public Node(T value){
+            this.value = value;
+        }
+
+        public Node getLeftChild(){
+            return this.leftChild;
+        }
+
+        public Node getRightChild(){
+            return this.rightChild;
+        }
+
+        public void setLeftChild(Node leftChild){
+            this.leftChild = leftChild;
+        }
+
+        public void setRightChild(Node rightChild){
+            this.rightChild = rightChild;
         }
     }
 
+    private Node root;
 
     public boolean contains(T value){
         if(root == null)
             return false;
-        Node<T> current = root;
+        Node current = root;
         while(current != null) {
-            int cmp = value.compareTo(current.data);
+            int cmp = value.compareTo(current.value);
             if(cmp < 0)
-                current = current.left;
+                current = current.leftChild;
             else if(cmp > 0)
-                current = current.right;
+                current = current.rightChild;
             else
                 return true;
         }
         return false;
     }
 
-    @Override
-    public void add(T value){
+    public boolean insert(T value){
         if(value == null)
-            return;
-        if(!contains(value)){
-            root = add((AVLNode<T>) root, value);
+            return false;
+        if(contains(value) == false){
+            root = insert(root, value);
+            return true;
         }
+        return false;
     }
 
-    private AVLNode<T> add(AVLNode<T> node, T value) {
+    private Node insert(Node node, T value) {
         if(node == null)
-            return new AVLNode<T>(value);
-        int compare = value.compareTo(node.data);
+            return new Node(value);
+        int compare = value.compareTo(node.value);
         if(compare < 0)
-            node.left = add((AVLNode<T>) node.left, value);
+            node.leftChild = insert(node.leftChild, value);
         else
-            node.right = add((AVLNode<T>) node.right, value);
+            node.rightChild = insert(node.rightChild, value);
 
         int leftNodeHeight;
         int rightNodeHeight;
 
-        if(node.left == null) leftNodeHeight = -1;
-        else leftNodeHeight = ((AVLNode<T>)node.left).height;
+        if(node.leftChild == null) leftNodeHeight = -1;
+        else leftNodeHeight = node.leftChild.height;
 
-        if(node.right == null) rightNodeHeight = -1;
-        else rightNodeHeight = ((AVLNode<T>)node.right).height;
+        if(node.rightChild == null) rightNodeHeight = -1;
+        else rightNodeHeight = node.rightChild.height;
 
         node.height = 1 + Math.max(leftNodeHeight, rightNodeHeight);
 
@@ -64,16 +84,16 @@ public class AVLTree <T extends Comparable<T>> extends BinarySearchTree<T> imple
         return balance(node);
     }
 
-    private AVLNode<T> balance(AVLNode<T> node){
+    private Node balance(Node node){
         if(node.balanceValue == -2){
-            if(((AVLNode<T>)node.left).balanceValue <= 0)
+            if(node.leftChild.balanceValue <= 0)
                 return leftToLeft(node);
             else
                 return leftToRight(node);
         }
 
         else if(node.balanceValue == 2){
-            if(((AVLNode<T>)node.right).balanceValue >= 0)
+            if(node.rightChild.balanceValue >= 0)
                 return rightToRight(node);
             else
                 return rightToLeft(node);
@@ -82,146 +102,134 @@ public class AVLTree <T extends Comparable<T>> extends BinarySearchTree<T> imple
         return node;
     }
 
-    private AVLNode<T> leftToLeft(AVLNode<T> node){
+    private Node leftToLeft(Node node){
         return rotateRight(node);
     }
 
-    private AVLNode<T> leftToRight(AVLNode<T> node){
-        node.left = rotateLeft((AVLNode<T>) node.left);
+    private Node leftToRight(Node node){
+        node.leftChild = rotateLeft(node.leftChild);
         return leftToLeft(node);
     }
 
-    private AVLNode<T> rightToRight(AVLNode<T> node){
+    private Node rightToRight(Node node){
         return rotateLeft(node);
     }
 
-    private AVLNode<T> rightToLeft(AVLNode<T> node){
-        node.right = rotateRight((AVLNode<T>) node.right);
+    private Node rightToLeft(Node node){
+        node.rightChild = rotateRight(node.rightChild);
         return rightToRight(node);
     }
 
-    private AVLNode<T> rotateLeft(AVLNode<T> node){
-        AVLNode<T> parentNode = (AVLNode<T>) node.right;
-        node.right = parentNode.left;
-        parentNode.left = node;
+    private Node rotateLeft(Node node){
+        Node parentNode = node.rightChild;
+        node.rightChild = parentNode.leftChild;
+        parentNode.leftChild = node;
 
         int leftHeight, rightHeight;
-        if(node.left == null)
+        if(node.leftChild == null)
             leftHeight = -1;
         else
-            leftHeight = ((AVLNode<T>)node.left).height;
-        if(node.right == null)
+            leftHeight = node.leftChild.height;
+        if(node.rightChild == null)
             rightHeight = -1;
         else
-            rightHeight = ((AVLNode<T>)node.right).height;
+            rightHeight = node.rightChild.height;
         node.height = 1 + Math.max(leftHeight, rightHeight);
         node.balanceValue = leftHeight - rightHeight;
 
-        if(parentNode.left == null)
+        if(parentNode.leftChild == null)
             leftHeight = -1;
         else
-            leftHeight = ((AVLNode<T>)parentNode.left).height;
-        if(parentNode.right == null)
+            leftHeight = parentNode.leftChild.height;
+        if(parentNode.rightChild == null)
             rightHeight = -1;
         else
-            rightHeight = ((AVLNode<T>)parentNode.right).height;
+            rightHeight = parentNode.rightChild.height;
         parentNode.height = 1 + Math.max(leftHeight, rightHeight);
         parentNode.balanceValue = leftHeight - rightHeight;
 
         return parentNode;
     }
 
-    private AVLNode<T> rotateRight(AVLNode<T> node){
-        AVLNode<T> parentNode = (AVLNode<T>) node.left;
-        node.left = parentNode.right;
-        parentNode.right = node;
+    private Node rotateRight(Node node){
+        Node parentNode = node.leftChild;
+        node.leftChild = parentNode.rightChild;
+        parentNode.rightChild = node;
 
         int leftHeight, rightHeight;
-        if(node.left == null)
+        if(node.leftChild == null)
             leftHeight = -1;
         else
-            leftHeight = ((AVLNode<T>)node.left).height;
-        if(node.right == null)
+            leftHeight = node.leftChild.height;
+        if(node.rightChild == null)
             rightHeight = -1;
         else
-            rightHeight = ((AVLNode<T>)node.right).height;
+            rightHeight = node.rightChild.height;
         node.height = 1 + Math.max(leftHeight, rightHeight);
         node.balanceValue = leftHeight - rightHeight;
 
-        if(parentNode.left == null)
+        if(parentNode.leftChild == null)
             leftHeight = -1;
         else
-            leftHeight = ((AVLNode<T>)parentNode.left).height;
-        if(parentNode.right == null)
+            leftHeight = parentNode.leftChild.height;
+        if(parentNode.rightChild == null)
             rightHeight = -1;
         else
-            rightHeight = ((AVLNode<T>)parentNode.right).height;
+            rightHeight = parentNode.rightChild.height;
         parentNode.height = 1 + Math.max(leftHeight, rightHeight);
         parentNode.balanceValue = leftHeight - rightHeight;
 
         return parentNode;
     }
 
-    public T remove(T value){
+    public boolean remove(T value){
         if(value == null)
-            return null;
+            return false;
         if (contains(value)){
-            root = remove((AVLNode<T>) root, value);
-            return value;
+            root = remove(root, value);
+            return true;
         }
-        return null;
+        return false;
     }
 
-    private AVLNode<T> remove(AVLNode<T> node, T value){
+    private Node remove(Node node, T value){
         if(node == null)
             return null;
-        int compare = value.compareTo(node.data);
+        int compare = value.compareTo(node.value);
 
         if(compare < 0)
-            node.left = remove((AVLNode<T>) node.left, value);
+            node.leftChild = remove(node.leftChild, value);
         else if(compare > 0)
-            node.right = remove((AVLNode<T>) node.right, value);
+            node.rightChild = remove(node.rightChild, value);
         else{
-            if(node.left == null)
-                return (AVLNode<T>) node.right;
-            else if(node.right == null)
-                return (AVLNode<T>) node.left;
+            if(node.leftChild == null)
+                return node.rightChild;
+            else if(node.rightChild == null)
+                return node.leftChild;
             else{
-                T temp = leftTreeMaxValue((AVLNode<T>) node.left);
-                node.data = temp;
+                T temp = leftTreeMaxValue(node.leftChild);
+                node.value = temp;
 
-                node.left = remove((AVLNode<T>) node.left, temp);
+                node.leftChild = remove(node.leftChild, temp);
             }
         }
 
-        if(node.left != null && node.right != null) {
-            node.height = 1 + Math.max(((AVLNode<T>) node.left).height, ((AVLNode<T>) node.right).height);
-            node.balanceValue = ((AVLNode<T>) node.left).height - ((AVLNode<T>) node.right).height;
-        }
-
-        else if(node.left == null){
-            node.height = 1 + ((AVLNode<T>)node.right).height;
-            node.balanceValue = (-1) - ((AVLNode<T>)node.right).height;
-        }
-
-        else{
-            node.height = 1 + ((AVLNode<T>)node.left).height;
-            node.balanceValue = ((AVLNode<T>)node.left).height - (-1);
-        }
+        node.height = 1 + Math.max(node.leftChild.height, node.rightChild.height);
+        node.balanceValue = node.leftChild.height - node.rightChild.height;
 
         return balance(node);
     }
 
-    private T leftTreeMaxValue(AVLNode<T> node){
-        while(node.right != null)
-            node = (AVLNode<T>) node.right;
-        return node.data;
+    private T leftTreeMaxValue(Node node){
+        while(node.rightChild != null)
+            node = node.rightChild;
+        return node.value;
     }
 
     public int height(){
         if(root == null)
             return 0;
-        return ((AVLNode<T>)root).height;
+        return root.height;
     }
 
     @Override
@@ -230,10 +238,10 @@ public class AVLTree <T extends Comparable<T>> extends BinarySearchTree<T> imple
     }
 
     public class Iterator implements java.util.Iterator<T> {
-        AVLNode<T> traversal = (AVLNode<T>) root;
-        Stack<AVLNode<T>> stackNode = new Stack<>();
+        Node traversal = root;
+        Stack<Node> stackNode = new Stack<>();
         public Iterator(){
-            stackNode.push((AVLNode<T>)root);
+            stackNode.push(root);
         }
 
         @Override
@@ -243,19 +251,19 @@ public class AVLTree <T extends Comparable<T>> extends BinarySearchTree<T> imple
 
         @Override
         public T next() {
-            while(traversal != null && traversal.left != null){
-                stackNode.push((AVLNode<T>) traversal.left);
-                traversal = (AVLNode<T>) traversal.left;
+            while(traversal != null && traversal.leftChild != null){
+                stackNode.push(traversal.leftChild);
+                traversal = traversal.leftChild;
             }
 
-            AVLNode<T> node = stackNode.pop();
+            Node node = stackNode.pop();
 
-            if(node.right != null){
-                stackNode.push((AVLNode<T>) node.right);
-                traversal = (AVLNode<T>) node.right;
+            if(node.rightChild != null){
+                stackNode.push(node.rightChild);
+                traversal = node.rightChild;
             }
 
-            return node.data;
+            return node.value;
         }
     }
 }
