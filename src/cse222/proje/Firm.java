@@ -33,7 +33,7 @@ public class Firm {
     /**
      * Save old flight in a stack
      */
-    private Stack<Flight> oldFlights; // priority queue
+    private Stack<Flight> oldFlights;
 
     public Firm() {
 
@@ -111,7 +111,7 @@ public class Firm {
          * @return true if successfully remove given Administrator, otherwise false
          * @throws NullPointerException if given parameter is null
          */
-        public Administrator removeAdministrator(Administrator removeAdministrator){
+        public Administrator removeSecurityPersonel(Administrator removeAdministrator){
             return new Administrator();
         }
 
