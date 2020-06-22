@@ -3,7 +3,7 @@ package cse222.proje;
 import java.util.Objects;
 
 public class Plane {
-	private String planeID;
+	private int planeID;
 	private StateOfPlane stateOfPlane;
 
     public Plane() {
@@ -13,7 +13,7 @@ public class Plane {
     public enum StateOfPlane{
 		ReadyToFly, Flying, Landed  ;
 	}
-	public Plane(String planeID) {
+	public Plane(int planeID) {
 		this.planeID = planeID;
 	}
 
@@ -29,4 +29,7 @@ public class Plane {
 		return Objects.equals(planeID, plane.planeID);
 	}
 
+	public int getPlaneID() {
+		return planeID;
+	}
 }
