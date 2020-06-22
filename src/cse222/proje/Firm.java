@@ -1,9 +1,6 @@
 package cse222.proje;
-import com.sun.source.tree.BinaryTree;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Stack;
 
 public class Firm {
     /**
@@ -25,7 +22,7 @@ public class Firm {
     /**
      * Holds Firm's Pilots
      */
-    private ArrayList<Pilot> Pilots;
+    private ArrayList<Pilot> pilots;
     /**
      * Holds Firm's name
      */
@@ -33,11 +30,7 @@ public class Firm {
     /**
      * Save old flight in a stack
      */
-    private Stack<Flight> oldFlights;
-
-    public Firm() {
-
-    }
+    //private Stack<Flight> oldFlights; // min heap
 
     public class Administrator extends Employee{
         /**
@@ -62,7 +55,7 @@ public class Firm {
          * @throws NullPointerException if given parameter is null
          */
         public boolean addAdministrator(Administrator admin){
-            return true;
+            return administrators.add(admin);
         }
 
         /**
@@ -72,7 +65,7 @@ public class Firm {
          * @throws NullPointerException if given parameter is null
          */
         public boolean addPilot(Pilot newPilot){
-            return Pilots.add(newPilot);
+            return pilots.add(newPilot);
         }
 
         /**
@@ -111,8 +104,12 @@ public class Firm {
          * @return true if successfully remove given Administrator, otherwise false
          * @throws NullPointerException if given parameter is null
          */
-        public Administrator removeSecurityPersonel(Administrator removeAdministrator){
-            return new Administrator();
+        public boolean removeAdministrator(Administrator removeAdministrator){
+        	if(administrators.size() == 1) {
+        		System.out.printf("You can not remove last admin!");
+        		return false;
+        	}
+            return administrators.remove(removeAdministrator);
         }
 
         /**
@@ -121,8 +118,8 @@ public class Firm {
          * @return true if successfully remove given pilot, otherwise false
          * @throws NullPointerException if given parameter is null
          */
-        public Pilot removePilot(Pilot removePilot){
-            return Pilots.remove(0);
+        public boolean removePilot(Pilot removePilot){
+            return pilots.remove(removePilot);
         }
 
         /**
@@ -131,8 +128,8 @@ public class Firm {
          * @return true if successfully remove given plane, otherwise false
          * @throws NullPointerException if given parameter is null
          */
-        public Plane removePlane(Plane removePlane){
-            return planes.remove(0);
+        public boolean removePlane(Plane removePlane){
+            return planes.remove(removePlane);
         }
 
         /**
@@ -142,10 +139,9 @@ public class Firm {
          * @return true if successfully remove given flight, otherwise false
          * @throws NullPointerException if given parameter is null
          */
-        public Flight removeFlight(Flight removeFlight){
-            Flight temp = flights.remove(0);
-            temp.getPilot().removeFlight(temp);
-            return temp;
+        public boolean removeFlight(Flight removeFlight){ /////////////////////////////////////////////////
+        	// add oldflight
+            return flights.remove(removeFlight);
         }
 
         /**
@@ -154,8 +150,8 @@ public class Firm {
          * @return true if successfully remove given hostess, otherwise false
          * @throws NullPointerException if given parameter is null
          */
-        public Hostess removeHostess(Hostess removeHostess){
-            return hostesses.remove(0);
+        public boolean removeHostess(Hostess removeHostess){
+            return hostesses.remove(removeHostess);
         }
 
         /**
@@ -163,7 +159,9 @@ public class Firm {
          * @return all pilots that firm has as StringBuilder
          */
         public StringBuilder displayPilots(){
-            return new StringBuilder();
+        	StringBuilder str = new StringBuilder();
+        	for(Pilot it : pilots) str.append(it.toString());        	
+            return str;
         }
 
         /**
@@ -171,7 +169,9 @@ public class Firm {
          * @return all planes that firm has as StringBuilder
          */
         public StringBuilder displayPlanes(){
-            return new StringBuilder();
+        	StringBuilder str = new StringBuilder();
+        	for(Plane it : planes) str.append(it.toString());        	
+            return str;
         }
 
         /**
@@ -179,7 +179,9 @@ public class Firm {
          * @return all flights that firm has as StringBuilder
          */
         public StringBuilder displayFlights(){
-            return new StringBuilder();
+        	StringBuilder str = new StringBuilder();
+        	for(Flight it : flights) str.append(it.toString());        	
+            return str;
         }
 
         /**
@@ -187,7 +189,9 @@ public class Firm {
          * @return all hostesses that firm has as StringBuilder
          */
         public StringBuilder displayHostesses(){
-            return new StringBuilder();
+        	StringBuilder str = new StringBuilder();
+        	for(Hostess it : hostesses) str.append(it.toString());        	
+            return str;
         }
 
         /**
@@ -198,9 +202,7 @@ public class Firm {
          */
         public boolean addOldFlight(Flight oldFlight){
             return true;
-        }
-
-
+        }       
     }
 
     /**
@@ -209,9 +211,17 @@ public class Firm {
      */
     public Firm(String firmName){
         this.firmName = firmName;
-
+        this.administrators = new ArrayList<Administrator>();
+        this.flights = new ArrayList<Flight>();
+        this.hostesses = new ArrayList<Hostess>();
+        this.pilots = new ArrayList<Pilot>();
+        this.planes = new ArrayList<Plane>();
     }
-
+    
+    public String getFirmName() {
+		return firmName;
+	}
+    
     /**
      * Returns Administrator which has given ID and password, if not exist returns null
      * @param ID will be checked
@@ -219,7 +229,12 @@ public class Firm {
      * @return Administrator which has given ID and password, if not exist returns null
      */
     public Administrator findAdmin(int ID, String password){
-        return new Administrator();
+        for(Administrator it : administrators) {
+        	if (it.getID() == ID && it.getPassword().equals(password)) return it;
+        }
+          
+        System.out.printf("No admin has found!");
+    	return null;
     }
 
     /**
@@ -229,7 +244,12 @@ public class Firm {
      * @return Pilot which has given ID and password, if not exist returns null
      */
     public Pilot findPilot(int ID, String password){
-        return new Pilot();
+    	for(Pilot it : pilots) {
+        	if (it.getID() == ID && it.getPassword().equals(password)) return it;
+        }
+        
+        System.out.printf("No pilot has found!");
+    	return null;
     }
 
     /**
@@ -239,7 +259,12 @@ public class Firm {
      * @return Hostess which has given ID and password, if not exist returns null
      */
     public Hostess findHostess(int ID, String password){
-        return new Hostess();
+    	for(Hostess it : hostesses) {
+        	if (it.getID() == ID && it.getPassword().equals(password)) return it;
+        }
+        
+        System.out.printf("No hostess has found!");
+    	return null;
     }
 
     /**
@@ -248,7 +273,12 @@ public class Firm {
      * @return Plane which has given ID and password, if not exist returns null
      */
     public Plane findPlane(int planeID){
-        return new Plane();
+    	for(Plane it : planes) {
+        	if (it.getPlaneID() == planeID) return it;
+        }
+    	
+        System.out.printf("No plane has found!");
+    	return null;
     }
 
     /**
@@ -257,7 +287,15 @@ public class Firm {
      * @return Flight which has given ID and password, if not exist returns null
      */
     public Flight findFlight(int flightID){
-        return new Flight();
+    	for(Flight it : flights) {
+        	if (it.getFlightID() == flightID) return it;
+        }
+        
+        System.out.printf("No flight has found!");
+    	return null;
     }
 
+    public String toString() {
+    	return firmName;
+    }
 }
