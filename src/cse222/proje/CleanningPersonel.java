@@ -1,6 +1,6 @@
 package cse222.proje;
 
-public class CleanningPersonel extends Employee implements Comparable<Employee>{
+public class CleanningPersonel extends Employee {
 
 	public CleanningPersonel(String name, String surname, int ID, String password) {
 		super(name, surname, ID, password);
