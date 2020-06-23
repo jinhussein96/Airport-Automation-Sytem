@@ -24,20 +24,101 @@ public class DriverClass {
 
 			switch (choice) {
 				case 1:
+					System.out.printf("\n You have chosen to proceed as Airport Personnel: \n");
+					System.out.printf("\n Proceed as : \n" +
+							"\n 1- Airport Administrator " +
+							"\n 2- Airport Security Personnel " +
+							"\n 3- Airport Cleaning Personnel");
 
-					break;
+					int tempAirportChoice = sc.nextInt();
+
+					switch (tempAirportChoice) {
+						case 1:
+							System.out.printf("\n You have chosen to proceed as Airport Administrator: \n");
+							break;
+						case 2:
+							System.out.printf("\n You have chosen to proceed as Airport Security Personnel: \n");
+							System.out.printf("\n Please give your Security Personnel ID: ");
+							int tempSPID = sc.nextInt();
+							System.out.printf("\n Please give your Security Personnel Password: ");
+							String tempSPPassword = sc.next();
+
+							SecurityPersonel tempSP = airport.findSecurityPersonel(tempSPID, tempSPPassword);
+							if (tempSP == null)
+								System.out.printf("\n There is no Security Personnel with that ID and password in the system \n");
+							else {
+								System.out.printf("\n Please give Sector ID you want to update: ");
+								int tempSectorID = sc.nextInt();
+								Sector tempSector = airport.findSector(tempSectorID);
+
+								if (tempSector == null)
+									System.out.printf("\n There is no Sector with that ID in the system \n");
+								else {
+									tempSP.updateSector(tempSector);
+									airport.updateSectorSecurity(tempSector);
+								}
+							}
+								break;
+						case 3:
+							System.out.printf("\n You have chosen to proceed as Airport Cleaning Personnel: \n");
+
+							System.out.printf("\n Please give your Cleaning Personnel ID: ");
+							int tempCPID = sc.nextInt();
+							System.out.printf("\n Please give your Cleaning Personnel Password: ");
+							String tempCPPassword = sc.next();
+
+							CleanningPersonel tempCP = airport.findCleanningPersonel(tempCPID, tempCPPassword);
+							if (tempCP == null)
+								System.out.printf("\n There is no Cleaning Personnel with that ID and password in the system \n");
+							else {
+								System.out.printf("\n Select you want to do as Cleaning Personnel \n" +
+										"\n 1- Display dirty sectors" +
+										"\n 2- Display clean sectors" +
+										"\n 3- Update a sector\n");
+
+								tempAirportChoice = sc.nextInt();
+
+								switch (tempAirportChoice) {
+									case 1:
+										System.out.printf("\n%s\n", airport.displayDirtySectors());
+										break;
+									case 2:
+										System.out.printf("\n%s\n", airport.displayCleanSectors());
+										break;
+									case 3:
+										System.out.printf("\n Please enter sector ID you want to update \n");
+										int tempSectorID = sc.nextInt();
+										Sector tempSector = airport.findSector(tempSectorID);
+
+										if (tempSector == null)
+											System.out.printf("\n There is no Sector with that ID in the system \n");
+										else {
+											tempCP.updateSector(tempSector);
+											airport.updateSectorCleaning(tempSector);
+										}
+										break;
+									default:
+										System.out.printf("\n You entered an invalid input \n");
+								}
+							}
+
+							break;
+						default:
+							System.out.printf("\n You entered an invalid input \n");
+					}
+
 				case 2:
 					System.out.printf("\n You have chosen to proceed as Firm Personnel: \n");
 					System.out.printf("\n Please select the Firm you are working on:\n  ");
 					airport.displayAllFirms();
 
 					System.out.printf("\n Please can give the name of Firm : ");
-					String firmName = sc.next() ;
+					String firmName = sc.next();
 
 					Firm tempFirm = airport.findFirm(firmName);
 					if (tempFirm == null)
 						System.out.printf("\n The Firm name you entered is not defined in the system \n");
-					else{
+					else {
 						System.out.printf("\n You are in the %s Firm, Proceed as :\n" +
 								"\n 1- Firm Administrator " +
 								"\n 2- Firm Pilot " +
@@ -45,18 +126,18 @@ public class DriverClass {
 
 						int tempChoice = sc.nextInt();
 
-						switch (tempChoice){
+						switch (tempChoice) {
 							case 1:
 								System.out.printf("\n You have chosen to proceed as Firm Administrator: \n");
-								System.out.printf("\n Please give your Administrator ID to see your flights: ");
+								System.out.printf("\n Please give your Administrator ID: ");
 								int tempAdminID = sc.nextInt();
-								System.out.printf("\n Please give your Administrator Password to see your flights: ");
+								System.out.printf("\n Please give your Administrator Password: ");
 								String tempAdminPassword = sc.next();
 
 								Firm.Administrator tempAdmin = tempFirm.findAdmin(tempAdminID, tempAdminPassword);
 								if (tempAdmin == null)
 									System.out.printf("\n There is no Administrator with ID: %d Password: %s \n", tempAdminID, tempAdminPassword);
-								else{
+								else {
 									System.out.printf("\n Select you want to do as Firm Administrator \n" +
 											"\n 1- Add Pilot" +
 											"\n 2- Remove Pilot" +
@@ -76,7 +157,7 @@ public class DriverClass {
 									int tempAdminChoice = sc.nextInt();
 									int tempID;
 									String tempName, tempSurname, tempPassword;
-									switch (tempAdminChoice){
+									switch (tempAdminChoice) {
 										case 1:
 											System.out.printf("\n Please give a name to add an Pilot: ");
 											tempName = sc.next();
@@ -91,7 +172,7 @@ public class DriverClass {
 										case 2:
 											System.out.printf("\n Please give an exist ID to remove an Pilot: ");
 											tempID = sc.nextInt();
-											tempAdmin.removePilot(new Pilot(null, null, tempID, null ));
+											tempAdmin.removePilot(new Pilot(null, null, tempID, null));
 											break;
 										case 3:
 											System.out.printf("\n%s\n", tempAdmin.displayPilots());
@@ -110,7 +191,7 @@ public class DriverClass {
 										case 5:
 											System.out.printf("\n Please give an exist ID to remove an Hostess: ");
 											tempID = sc.nextInt();
-											tempAdmin.removeHostess(new Hostess(null, null, tempID, null ));
+											tempAdmin.removeHostess(new Hostess(null, null, tempID, null));
 											break;
 										case 6:
 											System.out.printf("\n%s\n", tempAdmin.displayHostesses());
@@ -153,7 +234,7 @@ public class DriverClass {
 											Plane tempPlane = tempAdmin.findPlane(tempPlaneID);
 											Date tempDate = new Date(tempYear, tempMonth, tempDay, tempTime);
 
-											tempAdmin.addFlight(new Flight(tempID, tempPlane, tempPilot, tempHostess, tempDate ));
+											tempAdmin.addFlight(new Flight(tempID, tempPlane, tempPilot, tempHostess, tempDate));
 
 											break;
 										case 11:
@@ -198,13 +279,13 @@ public class DriverClass {
 								Pilot tempPilot = tempFirm.findPilot(tempPilotID, tempPilotPassword);
 								if (tempPilot == null)
 									System.out.printf("\n There is no Pilot with ID: %d Password: %s \n", tempPilotID, tempPilotPassword);
-								else{
+								else {
 									System.out.printf("\n Select you want to do as Firm Pilot \n" +
 											"\n 1- Display my flights " +
 											"\n 2- Change a plane status ");
 
 									int tempPilotChoice = sc.nextInt();
-									switch (tempPilotChoice){
+									switch (tempPilotChoice) {
 										case 1:
 											System.out.printf("\n%s\n", tempPilot.getFlights());
 											break;
@@ -255,8 +336,7 @@ public class DriverClass {
 					System.out.printf("\n You entered an invalid input \n");
 
 			}
-		}while (exitSystem);
+		}while (exitSystem) ;
 
 	}
-
 }
