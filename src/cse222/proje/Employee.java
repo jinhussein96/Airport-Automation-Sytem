@@ -1,16 +1,14 @@
 package cse222.proje;
 
-import java.util.Objects;
-
-public class Employee extends Person implements Loginable {
+public class Employee extends Person implements Loginable, Comparable<Employee>{
 	/**
 	 * Holds Employee's ID
 	 */
-	protected int ID;
+	 int ID;
 	/**
 	 * Holds Employee's password
 	 */
-	protected String password;
+	 String password;
 
 	/**
 	 * Create an Employee object
@@ -25,11 +23,12 @@ public class Employee extends Person implements Loginable {
 		this.password = password;
 	}
 
-    public Employee() {
-        super();
-    }
+	@Override
+	public int compareTo(Employee employee) {
+		return ID- employee.ID;
+	}
 
-    /**
+	/**
 	 * Returns true if given ID and password is match correctly, otherwise returns false
 	 * @param ID will be checked
 	 * @param password will be checked
@@ -59,5 +58,4 @@ public class Employee extends Person implements Loginable {
 		return "Employee [ID=" + ID + ", password=" + password + ", name=" + name + ", surname=" + surname + "]";
 	}
 
-	
 }
