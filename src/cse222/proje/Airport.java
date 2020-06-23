@@ -226,11 +226,26 @@ public class Airport {
 		return "";
 	}
 
+	public StringBuilder displayAllFirms(){
+		return new StringBuilder();
+	}
+
+
 	public StringBuilder displayDirtySectors(){
 		return new StringBuilder();
 	}
 
 	public StringBuilder displayCleanSectors(){
 		return new StringBuilder();
+	}
+
+	public boolean updateSectorSecurity(Sector update){
+
+		return true;
+	}
+
+	public boolean updateSectorCleaning(Sector update){
+
+		return true;
 	}
 }
