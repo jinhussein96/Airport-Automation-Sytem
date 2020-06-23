@@ -199,6 +199,11 @@ public class Firm {
         public boolean addOldFlight(Flight oldFlight){
             return true;
         }
+        
+        public boolean removeOldFlights(Date date){
+
+            return true;
+        }
 
 
     }
