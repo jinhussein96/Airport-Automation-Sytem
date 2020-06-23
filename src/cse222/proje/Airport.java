@@ -179,12 +179,11 @@ public class Airport {
 	}
 
 	/**
-	 * Returns Sector which has given ID and password, if not exist returns null
+	 * Returns Sector which has given ID , if not exist returns null
 	 * @param ID will be checked
-	 * @param password will be checked
-	 * @return Sector which has given ID and password, if not exist returns null
+	 * @return Sector which has given ID , if not exist returns null
 	 */
-	public Sector findSector(int ID, String password){
+	public Sector findSector(int ID){
 		return new Sector();
 	}
 
@@ -207,4 +206,11 @@ public class Airport {
 		return "";
 	}
 
+	public StringBuilder displayDirtySectors(){
+		return new StringBuilder();
+	}
+
+	public StringBuilder displayCleanSectors(){
+		return new StringBuilder();
+	}
 }
