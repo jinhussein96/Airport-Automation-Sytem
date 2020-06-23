@@ -58,49 +58,26 @@ public class DriverClass {
 									System.out.printf("\n There is no Administrator with ID: %d Password: %s \n", tempAdminID, tempAdminPassword);
 								else{
 									System.out.printf("\n Select you want to do as Firm Administrator \n" +
-											"\n 1- Add Administrator " +
-											"\n 2- Remove Administrator " +
-											"\n 3- Display Administrators" +
-											"\n 4- Add Pilot" +
-											"\n 5- Remove Pilot" +
-											"\n 6- Display Pilots" +
-											"\n 7- Add Hostess" +
-											"\n 8- Remove Hostesses" +
-											"\n 9- Display Hostesses" +
-											"\n 10- Add Plane" +
-											"\n 11- Remove Plane" +
-											"\n 12- Display Planes" +
-											"\n 13- Add Flight" +
-											"\n 14- Remove Flight" +
-											"\n 15- Display Flights" +
-											"\n 16- Display old Flights" +
-											"\n 17- Remove old Flights");
-
+											"\n 1- Add Pilot" +
+											"\n 2- Remove Pilot" +
+											"\n 3- Display Pilots" +
+											"\n 4- Add Hostess" +
+											"\n 5- Remove Hostesses" +
+											"\n 6- Display Hostesses" +
+											"\n 7- Add Plane" +
+											"\n 8- Remove Plane" +
+											"\n 9- Display Planes" +
+											"\n 10- Add Flight" +
+											"\n 11- Remove Flight" +
+											"\n 12- Display Flights" +
+											"\n 13- Display old Flights" +
+											"\n 14- Remove old Flights");
 
 									int tempAdminChoice = sc.nextInt();
 									int tempID;
 									String tempName, tempSurname, tempPassword;
 									switch (tempAdminChoice){
 										case 1:
-											System.out.printf("\n Please give a name to add an Administrator: ");
-											tempName = sc.next();
-											System.out.printf("\n Please give a surname to add an Administrator: ");
-											tempSurname = sc.next();
-											System.out.printf("\n Please give a new ID to add an Administrator: ");
-											tempID = sc.nextInt();
-											System.out.printf("\n Please give a password to add an Administrator: ");
-											tempPassword = sc.next();
-											tempAdmin.addAdministrator(tempFirm.new Administrator(tempName, tempSurname, tempID, tempPassword));
-											break;
-										case 2:
-											System.out.printf("\n Please give an exist ID to remove an Administrator: ");
-											tempID = sc.nextInt();
-											tempAdmin.removeAdministrator(tempFirm.new Administrator(null, null, tempID, null ));
-											break;
-										case 3:
-											System.out.printf("\n%s\n", tempAdmin.displayAdministrators());
-											break;
-										case 4:
 											System.out.printf("\n Please give a name to add an Pilot: ");
 											tempName = sc.next();
 											System.out.printf("\n Please give a surname to add an Pilot: ");
@@ -111,15 +88,15 @@ public class DriverClass {
 											tempPassword = sc.next();
 											tempAdmin.addPilot(new Pilot(tempName, tempSurname, tempID, tempPassword));
 											break;
-										case 5:
+										case 2:
 											System.out.printf("\n Please give an exist ID to remove an Pilot: ");
 											tempID = sc.nextInt();
 											tempAdmin.removePilot(new Pilot(null, null, tempID, null ));
 											break;
-										case 6:
+										case 3:
 											System.out.printf("\n%s\n", tempAdmin.displayPilots());
 											break;
-										case 7:
+										case 4:
 											System.out.printf("\n Please give a name to add an Hostess: ");
 											tempName = sc.next();
 											System.out.printf("\n Please give a surname to add an Hostess: ");
@@ -130,28 +107,28 @@ public class DriverClass {
 											tempPassword = sc.next();
 											tempAdmin.addHostess(new Hostess(tempName, tempSurname, tempID, tempPassword));
 											break;
-										case 8:
+										case 5:
 											System.out.printf("\n Please give an exist ID to remove an Hostess: ");
 											tempID = sc.nextInt();
 											tempAdmin.removeHostess(new Hostess(null, null, tempID, null ));
 											break;
-										case 9:
+										case 6:
 											System.out.printf("\n%s\n", tempAdmin.displayHostesses());
 											break;
-										case 10:
+										case 7:
 											System.out.printf("\n Please give an ID to add an Plane: ");
 											tempID = sc.nextInt();
 											tempAdmin.addPlane(new Plane(tempID));
 											break;
-										case 11:
+										case 8:
 											System.out.printf("\n Please give an exist ID to remove an Plane: ");
 											tempID = sc.nextInt();
 											tempAdmin.removePlane(new Plane(tempID));
 											break;
-										case 12:
+										case 9:
 											System.out.printf("\n%s\n", tempAdmin.displayPlanes());
 											break;
-										case 13:
+										case 10:
 											System.out.printf("\n Please give a new ID to add an Flight: ");
 											tempID = sc.nextInt();
 											System.out.printf("\n Please give a exist Pilot ID to adjust Flight's Pilot: ");
@@ -179,18 +156,18 @@ public class DriverClass {
 											tempAdmin.addFlight(new Flight(tempID, tempPlane, tempPilot, tempHostess, tempDate ));
 
 											break;
-										case 14:
+										case 11:
 											System.out.printf("\n Please give an exist ID to remove an Flight: ");
 											tempID = sc.nextInt();
 											tempAdmin.removeFlight(new Flight(tempID, null, null, null, null));
 											break;
-										case 15:
+										case 12:
 											System.out.printf("\n%s\n", tempAdmin.displayFlights());
 											break;
-										case 16:
+										case 13:
 											System.out.printf("\n%s\n", tempAdmin.displayOldFlights());
 											break;
-										case 17:
+										case 14:
 											System.out.printf("\n Please give a Flight Date to remove previous Flights from that date: \n");
 											System.out.printf("\n Year: ");
 											tempYear = sc.nextInt();
