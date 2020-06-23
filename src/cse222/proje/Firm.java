@@ -224,6 +224,40 @@ public class Firm {
             return str;
         }    
 	    
+	 /**
+         * Returns Pilot which has given ID and password, if not exist returns null
+         * @param ID will be checked
+         * @return Pilot which has given ID and password, if not exist returns null
+         */
+        public Pilot findPilot(int ID){
+            return new Pilot();
+        }
+
+        /**
+         * Returns Hostess which has given ID and password, if not exist returns null
+         * @param ID will be checked
+         * @return Hostess which has given ID and password, if not exist returns null
+         */
+        public Hostess findHostess(int ID){
+            return new Hostess();
+        }
+
+        /**
+         * Returns Plane which has given ID and password, if not exist returns null
+         * @param planeID will be checked
+         * @return Plane which has given ID and password, if not exist returns null
+         */
+        public Plane findPlane(int planeID){
+            return new Plane();
+        }
+
+
+        public boolean removeOldFlights(Date date){
+
+            return true;
+        }
+   
+	    
     }
 
     /**
