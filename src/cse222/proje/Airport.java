@@ -145,6 +145,26 @@ public class Airport {
 		public Firm removeFirm(Firm removeFirm){
 			return new Firm();
 		}
+		public StringBuilder displayAllFirms(){
+			return new StringBuilder();
+		}
+
+
+		public StringBuilder displayDirtySectors(){
+			return new StringBuilder();
+		}
+
+		public StringBuilder displayCleanSectors(){
+			return new StringBuilder();
+		}
+
+		public StringBuilder displaySecurityPersonnel(){
+			return new StringBuilder();
+		}
+
+		public StringBuilder displayCleaningPersonnel(){
+			return new StringBuilder();
+		}
 
 	}
 
