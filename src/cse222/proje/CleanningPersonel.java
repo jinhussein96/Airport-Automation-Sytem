@@ -1,20 +1,9 @@
 package cse222.proje;
 
-public class CleanningPersonel extends Employee {
+public class CleanningPersonel extends Employee implements Comparable<Employee>{
 
-	/**
-	 * Create a CleanningPersonel object
-	 * @param name will be set
-	 * @param surname will be set
-	 * @param ID will be set
-	 * @param password will be set
-	 */
 	public CleanningPersonel(String name, String surname, int ID, String password) {
 		super(name, surname, ID, password);
-	}
-
-	public CleanningPersonel() {
-
 	}
 
 	/**
@@ -23,8 +12,22 @@ public class CleanningPersonel extends Employee {
 	 * @return if updated successfully returns true
 	 * @throws NullPointerException if one of given parameters is null
 	 */
-	public boolean updateSector(Sector sector){
-		return true;
+	public boolean updateSector(Sector sector) {
+
+		if (sector.equals(null))
+			throw new NullPointerException("Sector can not be null!");
+
+		else {
+
+			if (sector.getCleanningState() == Sector.CleanningStates.DIRTY)
+				return sector.updateCleanningState(Sector.CleanningStates.CLEANNING);
+
+			else if (sector.getCleanningState() == Sector.CleanningStates.CLEANNING)
+				return sector.updateCleanningState(Sector.CleanningStates.CLEAN);
+
+			else
+				return sector.updateCleanningState(Sector.CleanningStates.DIRTY);
+		}
 	}
 
 	/**
@@ -33,7 +36,22 @@ public class CleanningPersonel extends Employee {
 	 * @throws NullPointerException if given parameter is null
 	 */
 	public void displaySector(Sector sector){
-		System.out.printf("\n Sector %s cleanning status : %s", sector.getSectorID(), sector.getCleanningState());
+		if (sector.equals(null))
+			throw new NullPointerException("Sector can not be null!");
+
+		else
+			System.out.printf("\n Sector %s cleanning status : %s", sector.getSectorID(), sector.getCleanningState());
 	}
 
+	/**
+	 *{@inheritDoc}
+	 */
+	@Override
+	public String toString() {
+		return "CleanningPersonel{" +
+				"ID=" + ID +
+				", name='" + name + '\'' +
+				", surname='" + surname + '\'' +
+				'}';
+	}
 }
