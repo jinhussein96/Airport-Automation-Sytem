@@ -35,6 +35,107 @@ public class DriverClass {
 					switch (tempAirportChoice) {
 						case 1:
 							System.out.printf("\n You have chosen to proceed as Airport Administrator: \n");
+							System.out.printf("\n Please give your Airport Administrator ID: ");
+							int tempAirportAdminID = sc.nextInt();
+							System.out.printf("\n Please give your Airport Administrator Password: ");
+							String tempAirportAdminPassword = sc.next();
+
+							Airport.Administrator tempAirportAdmin = airport.findAdministrator(tempAirportAdminID, tempAirportAdminPassword);
+							if (tempAirportAdmin == null)
+								System.out.printf("\n There is no Airport Administrator with that ID and password in the system \n");
+							else{
+								System.out.printf("\n Select you want to do as Firm Administrator \n" +
+										"\n 1- Add Firm" +
+										"\n 2- Remove Firm" +
+										"\n 3- Display Firms" +
+										"\n 4- Add Security Personel" +
+										"\n 5- Remove Security Personel" +
+										"\n 6- Display Security Personnel" +
+										"\n 7- Add Cleaning Personel" +
+										"\n 8- Remove Cleaning Personel" +
+										"\n 9- Display Cleaning Personnel" +
+										"\n 10- Add Sector" +
+										"\n 11- Remove Sector" +
+										"\n 12- Display Sectors\n" );
+
+								int tempAdminChoice = sc.nextInt();
+								switch (tempAdminChoice){
+									case 1:
+										System.out.printf("\n Please enter a new Firm name to add: ");
+										String tempFirmName = sc.next();
+										tempAirportAdmin.addFirm(new Firm(tempFirmName));
+										break;
+									case 2:
+										System.out.printf("\n Please enter the Firm name you want to remove: ");
+										tempFirmName = sc.next();
+										if (tempAirportAdmin.removeFirm(new Firm(tempFirmName)) == null)
+											System.out.printf("\n There is no Firm at that given name \n ");
+										break;
+									case 3:
+										System.out.printf("\n%s\n", tempAirportAdmin.displayAllFirms());
+										break;
+									case 4:
+										System.out.printf("\n Please enter a name for new Security Personel: ");
+										String tempName = sc.next();
+										System.out.printf("\n Please enter a surname for new Security Personel: ");
+										String tempSurname = sc.next();
+										System.out.printf("\n Please enter an ID for new Security Personel: ");
+										int tempID = sc.nextInt();
+										System.out.printf("\n Please enter a Password for new Security Personel: ");
+										String tempPassword = sc.next();
+
+										tempAirportAdmin.addSecurityPersonel(new SecurityPersonel(tempName, tempSurname, tempID, tempPassword));
+										break;
+									case 5:
+										System.out.printf("\n Please enter the Security Personel ID you want to remove: ");
+										tempID = sc.nextInt();
+										if (tempAirportAdmin.removeSecurityPersonel(new SecurityPersonel(null, null, tempID, null)) == null)
+											System.out.printf("\n There is no Security Personel at that given ID \n ");
+										break;
+									case 6:
+										System.out.printf("\n%s\n", tempAirportAdmin.displaySecurityPersonnel());
+										break;
+									case 7:
+										System.out.printf("\n Please enter a name for new Cleaning Personel: ");
+										tempName = sc.next();
+										System.out.printf("\n Please enter a surname for new Cleaning Personel: ");
+										tempSurname = sc.next();
+										System.out.printf("\n Please enter an ID for new Cleaning Personel: ");
+										tempID = sc.nextInt();
+										System.out.printf("\n Please enter a Password for new Cleaning Personel: ");
+										tempPassword = sc.next();
+
+										tempAirportAdmin.addSecurityPersonel(new SecurityPersonel(tempName, tempSurname, tempID, tempPassword));
+										break;
+									case 8:
+										System.out.printf("\n Please enter the Cleaning Personel ID you want to remove: ");
+										tempID = sc.nextInt();
+										if (tempAirportAdmin.removeCleanningPersonel(new CleanningPersonel(null, null, tempID, null)) == null)
+											System.out.printf("\n There is no Cleaning Personel at that given ID \n ");
+										break;
+									case 9:
+										System.out.printf("\n%s\n", tempAirportAdmin.displayCleaningPersonnel());
+										break;
+									case 10:
+										System.out.printf("\n Please enter the Sector ID you want to add: ");
+										tempID = sc.nextInt();
+										tempAirportAdmin.addSector(new Sector(tempID, Sector.CleanningStates.CLEAN, Sector.SecurityStates.SECURE));
+										break;
+									case 11:
+										System.out.printf("\n Please enter the Sector ID you want to remove: ");
+										tempID = sc.nextInt();
+										if (tempAirportAdmin.removeSector(new Sector(tempID, null, null)) == null)
+											System.out.printf("\n There is no Sector at that given ID \n ");
+										break;
+									case 12:
+										System.out.printf("\n%s\n", tempAirportAdmin.displayCleanSectors());
+										System.out.printf("\n%s\n", tempAirportAdmin.displayDirtySectors());
+										break;
+									default:
+										System.out.printf("\n You entered an invalid input \n");
+								}
+							}
+
 							break;
 						case 2:
 							System.out.printf("\n You have chosen to proceed as Airport Security Personnel: \n");
@@ -320,7 +421,6 @@ public class DriverClass {
 
 					}
 
-
 					break;
 				case 3:
 					System.out.printf("\n You have chosen to proceed as Passenger: \n");
@@ -336,7 +436,9 @@ public class DriverClass {
 					System.out.printf("\n You entered an invalid input \n");
 
 			}
+
 		}while (exitSystem) ;
 
 	}
+
 }
