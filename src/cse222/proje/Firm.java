@@ -212,7 +212,18 @@ public class Firm {
          */
         public boolean addOldFlight(Flight oldFlight){
             return true;
-        }       
+        } 
+	    
+	/**
+         * Returns all old flights that firm has as StringBuilder
+         * @return all old flights that firm has as StringBuilder
+         */
+        public StringBuilder displayOldFlights(){
+            StringBuilder str = new StringBuilder();
+        	for(Flight it : oldFlights) str.append(it.toString());        	
+            return str;
+        }    
+	    
     }
 
     /**
