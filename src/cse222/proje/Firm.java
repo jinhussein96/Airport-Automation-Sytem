@@ -160,7 +160,7 @@ public class Firm {
          */
         public StringBuilder displayAdministrators(){
             StringBuilder str = new StringBuilder();
-        	for(Administrator it : Administrator) str.append(it.toString());        	
+        	for(Administrator it : administrator) str.append(it.toString());        	
             return str;
         }    
 
