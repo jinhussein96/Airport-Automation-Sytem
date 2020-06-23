@@ -1,13 +1,12 @@
 package cse222.proje;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class Pilot extends Employee{
     /**
      * Holds flights that pilot work on
      */
-    ArrayList<Flight> flights;
+    private ArrayList<Flight> flights;
 
     /**
      * Create a Pilot object
@@ -42,7 +41,7 @@ public class Pilot extends Employee{
                 Plane.StateOfPlane status = Plane.StateOfPlane.valueOf(scanStatus.next());
                 if(status.equals(Plane.StateOfPlane.ReadyToFly) ||
                         status.equals(Plane.StateOfPlane.Flying) ||
-                        status.equals(Plane.StateOfPlane.Landed))
+                            status.equals(Plane.StateOfPlane.Landed))
                     flights.get(i).getPlane().setReadinessOfPlane(status);
                 else
                     throw new IllegalArgumentException();
@@ -52,41 +51,33 @@ public class Pilot extends Employee{
         throw new NullPointerException();
     }
 
-
     /**
-     * Returns Pilot's flights as String
-     * @return Pilot's flights as String
+     * Adds given flight to pilot's flights
+     * @param addFlight will be added
+     * @return true if it is added successfully
      */
-    public String getFlights(){
-        String str = new String();
-        Iterator<Flight> iter = flights.iterator();
-
-        while (iter.hasNext()){
-            Flight temp = iter.next();
-            str += "\n Flight ID: " + temp.flightID + "\n Flight " + temp.flightDate + "\n Plane ID: " + temp.plane.planeID + "\n";
-        }
-        return "\n Pilot Flights \n" + str + "\n";
+    public boolean addFlight(Flight addFlight){
+       return flights.add(addFlight);
     }
 
-    public String getFlight(int flightId){
-        Iterator<Flight> iter = flights.iterator();
+    /**
+     * Removes given flight to pilot's flights
+     * @param removeFlight will be removed
+     * @return true if it is removed successfully
+     */
+    public boolean removeFlight(Flight removeFlight){
+        return flights.remove(removeFlight);
+    }
 
-        while(iter.hasNext()){
-            Flight temp = iter.next();
-            if(temp.getFlightID() == flightId){
-                return "\n Flight ID: " + temp.flightID + "\n Flight " + temp.flightDate + "\n Plane ID: " + temp.plane.planeID + "\n";
-            }
+    public ArrayList<Flight> getFlights() {
+        return flights;
+    }
+
+    public Flight getFlight(int flightId){
+        for(int i = 0; i < flights.size(); ++i){
+            if(flights.get(i).getFlightID() == flightId)
+                return flights.get(i);
         }
         return null;
     }
-
-    /**
-     * Returns Information about Pilot like name, surname, ID
-     * @return Information about Pilot like name, surname, ID
-     */
-    public String toString() {
-
-        return "Pilot ID: " + ID + "\n Pilot name: "+name + "\n Pilot surname: "+surname;
-    }
-
 }
