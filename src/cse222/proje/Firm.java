@@ -153,6 +153,16 @@ public class Firm {
         public boolean removeHostess(Hostess removeHostess){
             return hostesses.remove(removeHostess);
         }
+	    
+	/**
+         * Returns all Administrator that firm has as StringBuilder
+         * @return all Administrator that firm has as StringBuilder
+         */
+        public StringBuilder displayAdministrators(){
+            StringBuilder str = new StringBuilder();
+        	for(Administrator it : Administrator) str.append(it.toString());        	
+            return str;
+        }    
 
         /**
          * Returns all pilots that firm has as StringBuilder
