@@ -22,6 +22,28 @@ public class Employee extends Person implements Loginable, Comparable<Employee>{
 		this.ID = ID;
 		this.password = password;
 	}
+	
+	public int getID() {
+		return ID;
+	}
+
+
+
+	public void setID(int iD) {
+		ID = iD;
+	}
+
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	@Override
 	public int compareTo(Employee employee) {
