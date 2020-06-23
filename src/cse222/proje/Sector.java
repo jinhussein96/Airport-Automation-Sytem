@@ -11,7 +11,7 @@ public class Sector {
     }
 
     public enum CleanningStates{
-		DIRTY, CLEANNING, CLEAN;
+		DIRTY, CLEAN;
 	}
 	
 	public enum SecurityStates{
