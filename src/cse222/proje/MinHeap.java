@@ -69,4 +69,8 @@ public class MinHeap<E extends Comparable<E>> {
 		
 		return str;
 	}
+	
+	public Iterator<E> iterator() {
+		return heap.iterator();
+	}
 }
