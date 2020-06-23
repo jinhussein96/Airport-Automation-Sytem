@@ -20,9 +20,6 @@ public class CleanningPersonel extends Employee implements Comparable<Employee>{
 		else {
 
 			if (sector.getCleanningState() == Sector.CleanningStates.DIRTY)
-				return sector.updateCleanningState(Sector.CleanningStates.CLEANNING);
-
-			else if (sector.getCleanningState() == Sector.CleanningStates.CLEANNING)
 				return sector.updateCleanningState(Sector.CleanningStates.CLEAN);
 
 			else
